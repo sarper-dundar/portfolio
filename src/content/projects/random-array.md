@@ -29,7 +29,7 @@ adjusting every tile individually.
 The solution was an add-on that does what Array does but with randomisation
 built in.
 
-![Random Array panel in Blender ](../../assets/figure/random-array-panel.png)
+![Random Array panel in Blender ](../../assets/figure/random-array-panel.PNG)
 
 ## How it works
 
@@ -48,7 +48,7 @@ Controls exposed in the N-panel:
 - Live updates — parameters change results immediately without re-running anything
 - Apply (joins all copies into one mesh) or Cancel (removes copies, restores original)
 
-![Roof tiles with randomised placement ](../../assets/figure/random-array-result.png)
+![Roof tiles with randomised placement ](../../assets/figure/random-array-result.PNG)
 
 ## Context
 
