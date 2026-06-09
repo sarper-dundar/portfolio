@@ -7,7 +7,6 @@
 
     <aside class="flow-column side-column">
       <slot name="profile" />
-      <slot name="activity" />
       <slot name="links" />
     </aside>
   </section>
@@ -51,10 +50,6 @@
 
   .flow-grid :global(.profile-heading h1) {
     font-size: 1.52rem;
-  }
-
-  .flow-grid :global(.heatmap-card) {
-    padding: 18px 0;
   }
 
   .flow-grid :global(.nav-card) {
@@ -108,10 +103,6 @@
 
     .flow-grid :global(.nav-card) {
       order: 2;
-    }
-
-    .flow-grid :global(.heatmap-card) {
-      order: 3;
     }
 
     .flow-grid :global(.doing-card) {

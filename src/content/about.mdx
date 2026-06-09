@@ -1,88 +1,65 @@
 ---
-title: '关于 navfolio'
-description: '一个安静的 Astro 个人发布空间，用于整合主页、博客、项目文档、Vibe 短记录、搜索和评论系统。'
-date: '2026-05-01T00:00:00+08:00'
-draft: false
-showHeroImage: false
-tags:
-  - About
-  - Navfolio
-  - Personal Site
-comments: false
+title: 'About'
+description: 'Technical Artist based in Bursa, Turkey. Unity tools and shaders for indie games. Formerly a professional dance instructor and competitor for eleven years.'
+date: '2026-06-06'
 sidebar:
   enable: false
-  toc: false
-  relatedPosts: false
 ---
 
-import FriendLinkCard from '../components/mdx/FriendLinkCard.astro';
+# About
 
-navfolio 是一个轻量的个人发布起点，适合想把个人资料、常用链接、项目笔记、长文写作和短记录集中到同一处的人。
+I'm Sarper Dundar, a technical artist based in Bursa, Turkey. I build Unity
+tools, VFX assets, and shaders for indie developers — publishing under the
+Masingan studio name on the Unity Asset Store. My focus is performance-first
+work for low-poly and stylized games on URP.
 
-它把个人网站从“静态简历页”转向“可阅读的内容操作面板”：既是公开思考的笔记本，也是身份入口的轻量索引，同时还是可长期积累的写作归档空间。
+## The game dev thread
 
-如果这个项目对你有帮助，欢迎在 GitHub 仓库点一个 star：[dodolalorc/astro-navfolio](https://github.com/dodolalorc/astro-navfolio)。
+I've been making games in some form since 2016 — jams, hobby projects,
+collaborations. For most of that time it ran alongside another career entirely.
+The projects were small and the hours were stolen, but the work never stopped.
 
-## 这个空间适合做什么
+In 2024 I shifted focus fully to game development as a technical artist. The
+Asset Store work started shortly after — first the Searchlight System, then
+Surface Text Placer, then the Wet Surfaces shader system. Each project is
+chosen to teach something that compounds into the next one.
 
-你可以在这里沉淀长期笔记、文章草稿、项目记录、生活片段，以及那些原本会分散在多个主页与仓库里的上下文信息。
+## What I work with
 
-默认内容是示例数据。替换 starter 内容时，通常优先编辑这些位置：
+Unity 6, URP 17.2, Shader Graph, HLSL, C# editor scripting, VFX Graph,
+Substance Designer, Gaea.
 
-- `src/config/site.toml`：站点标题、作者资料、导航、首页、主题、搜索和评论配置。
-- `src/content/blog/`：长文、教程和模块使用手册。
-- `src/content/projects/`：项目入口和项目文档。
-- `src/content/vibe/`：更短、更即时的记录。
-- `src/content/about.mdx`：当前这个关于页面。
+The longer-term goal is a tech artist role at a strategy game studio. The
+grand strategy map game I'm contributing to as a side project is the
+portfolio piece for that path.
 
-## 它是如何构建的
+## The other eleven years
 
-项目采用 Astro-first、内容驱动、默认静态输出的方式。你可以直接编辑 Markdown 和 MDX 内容，将其渲染为文章页面，并部署到 GitHub Pages、Vercel、Netlify、Cloudflare Pages，或任何支持 Astro 构建的平台。
+From 2013 to 2024 I worked as a professional dance instructor, dance artist,
+and competitive dance sportsman. It was a real career, not a side job — over
+the course of those years I taught students at all levels, competed, and took
+on the kind of organizational work that comes with being embedded in a school
+for long enough: coordinating schedules, managing relationships between
+departments, stepping into near-coordinator and near-co-owner responsibilities
+when the situation called for it. I also judged at dance sport events the
+schools I worked with organized.
 
-视觉语言刻意保持克制：结构柔和、界面低噪、排版可读，交互也以轻量为主，服务阅读而不打断阅读。
+I mention this not as a curiosity but because it's where a large part of how
+I work comes from. Teaching for that long — breaking down complex movement
+for people at very different levels, finding the explanation that lands for
+this specific student — is the same muscle I use when mentoring junior artists
+or writing documentation that non-technical users can actually follow. Running
+events and coordinating schools is project and people management, just in a
+different domain. And competitive sport at any serious level teaches a kind
+of precision about your own performance that doesn't really go away.
 
-## 当前支持的模块
+The 2024 shift wasn't an escape from something that wasn't working. It was
+a decision, after eight years of doing both, to go all in on the thing I'd
+been building toward the whole time.
 
-- 内容集合：博客、项目、About 和 Vibe 都由 Astro Content Collection 管理。
-- 全文搜索：Pagefind 负责构建静态搜索索引，支持 `Ctrl+K` / `Cmd+K`。
-- 评论系统：可在 giscus、utterances、Waline 和关闭状态之间切换。
-- 主题色盘：站点维护者可以在 `site.toml` 中选择内置色盘。
-- MDX 组件：支持友链卡片、长图、轮播和可缩放图片等内容组件。
-- RSS / Sitemap：构建时自动生成，适合静态站点发布。
+## Contact
 
-## 相关链接
-
-<FriendLinkCard
-  items={[
-    {
-      name: '主题作者：哆哆啦',
-      url: 'https://dodolalorc.cn/',
-      bio: '项目作者的个人主页',
-      avatar: 'https://avatars.githubusercontent.com/u/114007020?v=4',
-    },
-    {
-      name: 'Astro',
-      url: 'https://astro.build/',
-      bio: 'Navfolio 的静态站点框架',
-      avatar: 'https://astro.build/assets/press/astro-icon-light-gradient.svg',
-    },
-    {
-      name: 'Bun',
-      url: 'https://bun.com/',
-      bio: '项目使用的运行时和包管理工具',
-      avatar: 'https://bun.com/favicon.ico',
-    },
-    {
-      name: 'Starlight',
-      url: 'https://starlight.astro.build/',
-      bio: 'Astro 官方文档主题，也是搜索方案的重要参考',
-      avatar: 'https://starlight.astro.build/_astro/hero-star.CRrHICv4_Z1lBjS1.webp',
-    },
-    {
-      name: 'giscus',
-      url: 'https://giscus.app/zh-CN',
-      bio: '基于 GitHub Discussions 的评论系统',
-      avatar: 'https://giscus.app/favicon.ico',
-    },
-  ]}
-/>
+GitHub: [github.com/sarperdundar](https://github.com/sarperdundar)  
+LinkedIn: [linkedin.com/in/sarper-dundar](https://www.linkedin.com/in/sarper-dundar/)  
+Email: sarperdundar@gmail.com  
+Unity Asset Store: [Masingan](https://assetstore.unity.com/publishers/140368)

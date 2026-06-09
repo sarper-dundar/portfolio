@@ -38,6 +38,12 @@ const articleSchema = ({ image }: Parameters<CollectionSchemaFactory>[0]) =>
     sidebar: sidebarSchema,
   });
 
+const projectSchema = (args: Parameters<CollectionSchemaFactory>[0]) =>
+  articleSchema(args).extend({
+    status: z.enum(['wip', 'released', 'submitted']).optional(),
+    storeUrl: z.url().optional(),
+  });
+
 const commentProviderSchema = z.enum(['giscus', 'utterances', 'waline', 'none']);
 const paletteSchema = z.enum([
   'green-soft',
@@ -218,7 +224,7 @@ const siteConfig = defineCollection({
       website: z.url(),
       github: z.url(),
       meta: z.string(),
-      avatar: z.string(),
+      avatar: z.string().optional(),
     }),
     topNav: z.object({
       links: z.array(linkSchema.omit({ icon: true })),
@@ -301,7 +307,7 @@ const about = defineCollection({
 
 const projects = defineCollection({
   loader: glob({ base: './src/content/projects', pattern: '**/*.{md,mdx}' }),
-  schema: articleSchema,
+  schema: projectSchema,
 });
 
 const vibe = defineCollection({
