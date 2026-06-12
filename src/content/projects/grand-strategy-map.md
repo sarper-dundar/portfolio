@@ -56,6 +56,47 @@ Cloud shadow pass across terrain, time-of-day mood shifts, volumetric atmosphere
 for dramatic zoomed-out views. Planned integration point for the Volumetric
 Lighting asset once it's built.
 
+## Faction material — Dwarves (first completed)
+
+The first finished material for the project. Each playable race needs a
+visual identity that reads at map scale, and the dwarves were the first I
+took through to completion.
+
+**Setting context.** The dwarves are an iron-working race living on
+iron-rich land. Their walls and infrastructure are affected by a
+mushroom-like disease that gathers across surfaces, sends out red mycelial
+connections, and slowly destroys the land it spreads across. So the
+material has to read as two things at once — industrial iron-working
+craftsmanship and an organic biological infection growing through it.
+
+**Direction from the writer (translated):**
+
+> Architecture: Art Nouveau in the Antoni Gaudí tradition, Soviet
+> Constructivism, and — for the Barzar walls — iron walls woven into vine
+> shapes alongside dead reefs.
+>
+> Biological: H. R. Giger's drawings can be drawn on as reference.
+
+The writer asked for a Giger-leaning treatment so the affected surfaces
+would feel alien. My take was to keep the silhouette and motifs
+recognisably dwarven rather than literally biomechanical — Giger's
+language of ribbed organic forms and dark bone-like structures, but
+running through molten iron and mycelium instead of bone and chitin. The
+result is a base ground material built on those two ingredients: iron
+that reads as poured and partially cooled, and mycelial growth threading
+through it.
+
+![Dwarf base material — node graph](../../assets/figure/gigerbonenode.PNG)
+
+![Dwarf base material — surface result](../../assets/figure/gigerbone2.PNG)
+
+![Dwarf base material — variation](../../assets/figure/gigerbone3.PNG)
+
+This is the material that goes underneath everything else in dwarven
+territory. The corruption-spreading system will eventually drive its
+parameters at the province level — provinces deeper into the infection
+get higher mycelium coverage and more visible red connections.
+
 ## Why this project still matters for portfolio
 
 Using WMSK2 rather than building borders from scratch was the right engineering

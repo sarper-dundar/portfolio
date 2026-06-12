@@ -101,6 +101,17 @@ intersection with scene geometry. Job System parallelism keeps the CPU
 cost flat regardless of how many lights are active. Also released as a
 standalone commercial asset.
 
+## Lab wall — unused
+
+A lab interior wall material built during an earlier art direction.
+Tileable panels with seam grime and edge wear, intended for the lab
+environments before the look of the game shifted. The art direction moved
+elsewhere and the material never made it into the shipping scenes.
+
+![Area58 lab wall result](../../assets/figure/area58labwall.PNG)
+
+![Area58 lab wall node graph](../../assets/figure/area58labwallnode.PNG)
+
 ---
 
 _Steam page: [store.steampowered.com/app/4148510/Area58](https://store.steampowered.com/app/4148510/Area58/)_  

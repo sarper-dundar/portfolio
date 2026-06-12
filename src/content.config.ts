@@ -40,7 +40,7 @@ const articleSchema = ({ image }: Parameters<CollectionSchemaFactory>[0]) =>
 
 const projectSchema = (args: Parameters<CollectionSchemaFactory>[0]) =>
   articleSchema(args).extend({
-    status: z.enum(['wip', 'released', 'submitted']).optional(),
+    status: z.enum(['wip', 'released', 'submitted', 'cancelled', 'unfinished']).optional(),
     storeUrl: z.url().optional(),
   });
 

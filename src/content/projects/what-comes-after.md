@@ -34,6 +34,8 @@ random order and had to fill the outline of a building within a limited number
 of moves and a time limit. The shape of the building was fixed; the order the
 pieces arrived was not.
 
+![WCA work](../../assets/figure/sarper-dundar-wca.jpg)
+
 ## Art direction
 
 The game is set in a dystopian world in the vein of 1984 — centralized power,
