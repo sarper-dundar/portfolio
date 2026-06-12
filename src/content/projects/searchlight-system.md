@@ -9,7 +9,7 @@ tags:
   - hlsl
   - urp
 status: 'released'
-storeUrl: 'https://assetstore.unity.com/packages/TODO'
+storeUrl: 'https://assetstore.unity.com/packages/vfx/searchlight-system-volumetric-beam-lights-for-urp-368196'
 sidebar:
   enable: true
   toc: true
@@ -45,6 +45,8 @@ those vertices based on hit distances. It worked when a wall was directly
 in front of the cone but failed whenever geometry sat inside the cone body —
 no rim ray touched it, so the mesh passed straight through.
 
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/ikBLJKbQ9Go" frameborder="0" allowfullscreen></iframe>
+
 The actual cause was the intermediate ring vertices. The cone uses multiple
 rings between apex and rim for smooth wall transitions. These inner rings
 were hardcoded to a fixed fraction of the full range — they had no knowledge
@@ -73,6 +75,8 @@ A `SmoothSeamNormals` method finds all co-located vertex pairs after normal
 recalculation and averages them. Runs in O(n²) but with only 101 vertices at
 default settings the cost is under 0.1ms.
 
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/Pjaej5-iFdo" frameborder="0" allowfullscreen></iframe>
+
 ## Performance
 
 Shadow maps dominate at 2–4ms per light. Everything else — mesh rebuild,
@@ -86,15 +90,7 @@ completing handles across frames. Custom URP unlit shaders with
 `MaterialPropertyBlock` for per-instance overrides without breaking SRP Batcher.
 How the depth buffer works and how to write a URP Renderer Feature to expose it.
 
-## Videos
-
-<iframe width="100%" height="400" src="https://www.youtube.com/embed/ikBLJKbQ9Go" frameborder="0" allowfullscreen></iframe>
-
-<iframe width="100%" height="400" src="https://www.youtube.com/embed/Pjaej5-iFdo" frameborder="0" allowfullscreen></iframe>
-
 <iframe width="100%" height="400" src="https://www.youtube.com/embed/G0VtZZOzl7Q" frameborder="0" allowfullscreen></iframe>
-
----
 
 _There is one known pending fix — a VFX error when an incorrect asset is
 assigned to the dust particle slot. Fix is adding `HasFloat`/`HasVector4`

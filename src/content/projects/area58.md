@@ -57,6 +57,8 @@ impossible to edit directly because any ASE save wipes your changes. I
 rebuilt the entire shader in Unity Shader Graph to gain full control, then
 merged the wet ground system on top.
 
+![Area58 Triplanar](../../assets/figure/groundtriplanar.PNG)
+
 The tricky parts:
 
 **Four-face cylindrical triplanar.** Synty's triplanar samples four faces

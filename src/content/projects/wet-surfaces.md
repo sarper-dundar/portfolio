@@ -50,10 +50,12 @@ base colour lerps toward a darkened version, smoothness shifts from rough to
 glossy, and normals lerp toward flat — the water surface suppresses surface
 detail. Three visible changes from one value.
 
+![Wetsurface subgraph](../../assets/figure/wetsurfacesubgraph.PNG)
+
 ## Rain ripple shader
 
 Fully procedural — no textures. Built as a Custom Function HLSL node using
-Cyanilux's technique _(credited on the Asset Store page)_.
+Cyanilux's technique.
 
 The algorithm divides the surface into a grid of cells. Each cell gets a
 randomly placed raindrop origin with a random time offset so rings don't
@@ -74,6 +76,8 @@ the strength applied to XY — fixed by applying strength before normalising).
 Parameters exposed: density, strength, speed, wave count, sharpness. Wave
 count and sharpness were hardcoded in the original technique; exposing them
 as user controls was a deliberate addition.
+
+![Rain Trail](../../assets/figure/raintrail.PNG)
 
 ## Window rain shader
 

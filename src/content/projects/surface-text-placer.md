@@ -64,6 +64,8 @@ weren't updating immediately in Scene view. `ForceMeshUpdate()` alone wasn't
 enough — `EditorUtility.SetDirty()` on the TMP component was also required
 to force an immediate repaint.
 
+![Inscription Placer](../../assets/figure/inscriptionplacer.PNG)
+
 **Rotation save bug.** The Reset button wasn't restoring rotation correctly
 when users had rotated inscriptions with Unity's own rotate gizmo rather than
 the Inspector slider. The slider value and the actual transform rotation had
