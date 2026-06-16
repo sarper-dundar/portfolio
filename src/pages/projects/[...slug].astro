@@ -53,6 +53,25 @@ const store = project.data.storeUrl ? describeStore(project.data.storeUrl) : nul
   import { mountMaterialViewers } from '../../utils/material-viewer';
   import { mountModelViewers } from '../../utils/model-viewer';
   import { mountLabDemos } from '../../utils/shaders';
+
+  // BASE_URL fix for raw <source data-base-src="..."> in markdown — Astro
+  // doesn't process attributes inside HTML embedded in .md files, so we
+  // patch them client-side. Works in both dev (BASE_URL='/') and Pages
+  // (BASE_URL='/portfolio/').
+  function applyBasePaths() {
+    const base = (import.meta.env.BASE_URL ?? '/').replace(/\/+$/, '');
+    document.querySelectorAll<HTMLSourceElement>('source[data-base-src]').forEach((s) => {
+      const raw = s.dataset.baseSrc!;
+      const resolved = `${base}${raw.startsWith('/') ? '' : '/'}${raw}`;
+      if (s.src.endsWith(resolved)) return;
+      s.src = resolved;
+      s.closest('video')?.load();
+    });
+  }
+
+  applyBasePaths();
+  document.addEventListener('astro:page-load', applyBasePaths);
+
   mountMaterialViewers();
   mountModelViewers();
   mountLabDemos();

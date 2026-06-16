@@ -32,7 +32,13 @@ function renderShell(root: HTMLElement, name: string): void {
 }
 
 async function mount(root: HTMLElement): Promise<Viewer> {
-  const src = root.dataset.src ?? '';
+  const rawSrc = root.dataset.src ?? '';
+  // BASE_URL is "/" in dev and "/portfolio/" on GitHub Pages — prefix the
+  // data-src so a markdown `data-src="/models/x.glb"` works both places.
+  const base = (import.meta.env.BASE_URL ?? '/').replace(/\/+$/, '');
+  const src = /^https?:\/\//i.test(rawSrc)
+    ? rawSrc
+    : `${base}${rawSrc.startsWith('/') ? '' : '/'}${rawSrc}`;
   const name = root.dataset.name ?? 'Model';
   renderShell(root, name);
 

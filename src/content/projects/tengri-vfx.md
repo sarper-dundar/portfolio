@@ -30,7 +30,7 @@ sky-god, and pushed the look toward cool light and vertical motion
 rather than the course's reference.
 
 <video controls muted loop playsinline preload="metadata" poster="../../assets/figure/unrealvfx/sarper-dundar-tengre.jpg" style="width:100%; border-radius:10px; display:block;">
-  <source src="/videos/tengri-vfx.mp4" type="video/mp4">
+  <source data-base-src="/videos/tengri-vfx.mp4" type="video/mp4">
   Sorry, your browser does not support embedded video.
 </video>
 

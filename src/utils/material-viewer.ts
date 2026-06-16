@@ -136,9 +136,12 @@ async function mount(root: HTMLElement): Promise<Viewer> {
   // Load textures concurrently
   if (statusEl) statusEl.textContent = 'loading…';
   const loader = new THREE.TextureLoader();
+  // BASE_URL is "/" in dev and "/portfolio/" on GitHub Pages — strip the
+  // trailing slash so we can compose paths without doubling it.
+  const base = (import.meta.env.BASE_URL ?? '/').replace(/\/+$/, '');
   const texPromises = await Promise.all(
     requested.map(async (map) => {
-      const url = `/materials/${slug}/${map}.webp`;
+      const url = `${base}/materials/${slug}/${map}.webp`;
       try {
         const tex = await loadTexture(loader, url, map === 'basecolor');
         return [map, tex] as const;
