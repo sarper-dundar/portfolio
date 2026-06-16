@@ -1,5 +1,5 @@
 ---
-import { Github, ListTree, Menu, Moon, Sun } from 'lucide-astro';
+import { Github, ListTree, Mail, Menu, Moon, Sun } from 'lucide-astro';
 import SiteSearch from './SiteSearch.astro';
 import { getSiteConfig } from '../../data/site';
 
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { showTocIcon = false, tocItems = [] } = Astro.props;
-const { site, topNav, search } = await getSiteConfig();
+const { site, topNav, search, profile } = await getSiteConfig();
 const links = topNav.links;
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
 const currentPathname =
@@ -122,6 +122,9 @@ const shouldShowTocAction = showTocIcon && tocItems.length > 0;
   </nav>
 
   <div class="nav-actions" aria-label="Page actions">
+    <a href={`mailto:${profile.email}`} aria-label="Send an email" title="Email">
+      <Mail size={17} stroke-width={2} />
+    </a>
     <a
       href={site.repository}
       target="_blank"
@@ -496,15 +499,11 @@ const shouldShowTocAction = showTocIcon && tocItems.length > 0;
       gap: 6px;
     }
 
-    .nav-actions a {
-      display: none;
-    }
-
     .nav-actions a,
     .nav-actions button,
     .mobile-menu-toggle {
-      width: 36px;
-      height: 36px;
+      width: 44px;
+      height: 44px;
       border-radius: 7px;
     }
 

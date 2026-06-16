@@ -123,6 +123,16 @@ label = "Email"
 href  = "mailto:sarperdundar@gmail.com"
 icon  = "mail"
 
+[[config.home.connect]]
+label = "LinkedIn"
+href  = "https://www.linkedin.com/in/sarper-dundar/"
+icon  = "linkedin"
+
+[[config.home.connect]]
+label = "Asset Store"
+href  = "https://assetstore.unity.com/publishers/140368"
+icon  = "package"
+
 # The "currently working on" list
 [[config.home.doing]]
 text = "Low Poly Wet Surfaces — Unity Asset Store (WIP)"

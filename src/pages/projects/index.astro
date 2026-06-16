@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 import BlogArticle from '../../layouts/BlogArticle.astro';
 import { sortByDateDesc } from '../../utils/content-dates';
+import { getTagColorClass } from '../../utils/tag-colors';
 
 const projectEntries = await getCollection('projects');
 const projectIndex = projectEntries.find((entry) => entry.id === 'index');
@@ -27,6 +28,16 @@ function withBase(href: string) {
 
   return `${basePath}${href.startsWith('/') ? href : `/${href}`}`;
 }
+
+function resolveHeroImageUrl(heroImage: unknown): string | null {
+  if (!heroImage) return null;
+  if (typeof heroImage === 'string') return heroImage;
+  if (typeof heroImage === 'object' && heroImage !== null && 'src' in heroImage) {
+    const src = (heroImage as { src: unknown }).src;
+    return typeof src === 'string' ? src : null;
+  }
+  return null;
+}
 ---
 
 <BlogArticle
@@ -42,22 +53,34 @@ function withBase(href: string) {
   {
     relatedProjects.length > 0 ? (
       <section class="project-grid" aria-label="Projects">
-        {relatedProjects.map((project) => (
-          <a class="project-card" href={withBase(`/projects/${project.id}/`)}>
-            <span class="project-meta">
-              <FormattedDate date={project.data.date} />
-            </span>
-            <h2>{project.data.title}</h2>
-            <p>{project.data.description}</p>
-            {project.data.tags.length > 0 && (
-              <span class="project-tags" aria-label="Project tags">
-                {project.data.tags.slice(0, 3).map((tag) => (
-                  <small>{tag}</small>
-                ))}
+        {relatedProjects.map((project) => {
+          const heroUrl = resolveHeroImageUrl(project.data.heroImage);
+          return (
+            <a
+              class:list={['project-card', heroUrl ? 'has-hero' : '']}
+              href={withBase(`/projects/${project.id}/`)}
+              style={heroUrl ? `--hero-image: url('${heroUrl}')` : undefined}
+            >
+              <span class="project-meta">
+                <FormattedDate date={project.data.date} />
+                {project.data.status && (
+                  <small class:list={['status-badge', `status-${project.data.status}`]}>
+                    {project.data.status}
+                  </small>
+                )}
               </span>
-            )}
-          </a>
-        ))}
+              <h2>{project.data.title}</h2>
+              <p>{project.data.description}</p>
+              {project.data.tags.length > 0 && (
+                <span class="project-tags" aria-label="Project tags">
+                  {project.data.tags.slice(0, 3).map((tag) => (
+                    <small class:list={[getTagColorClass(tag)]}>{tag}</small>
+                  ))}
+                </span>
+              )}
+            </a>
+          );
+        })}
       </section>
     ) : (
       <section class="project-empty" aria-label="Projects empty state">
@@ -89,8 +112,15 @@ function withBase(href: string) {
   .project-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
+    gap: 22px;
     margin-top: 34px;
+  }
+
+  @media (max-width: 720px) {
+    .project-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
   }
 
   .project-card,
@@ -104,20 +134,84 @@ function withBase(href: string) {
   .project-card {
     display: grid;
     gap: 12px;
-    min-height: 210px;
-    padding: 22px;
+    min-height: 260px;
+    padding: 24px;
     color: var(--paper-ink);
     text-decoration: none;
+    cursor: pointer;
     transition:
-      transform 180ms ease,
-      border-color 180ms ease,
-      background 180ms ease;
+      transform 200ms ease,
+      border-color 200ms ease,
+      background 200ms ease,
+      box-shadow 200ms ease;
   }
 
   .project-card:hover {
     border-color: var(--paper-line-strong);
     background: var(--paper-control-hover);
-    transform: translateY(-1px);
+    transform: scale(1.01);
+    box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.18);
+  }
+
+  .project-card.has-hero {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .project-card.has-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--hero-image);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.48;
+    transition: opacity 200ms ease;
+    z-index: -2;
+  }
+
+  .project-card.has-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--paper-surface) 60%, transparent) 0%,
+      color-mix(in srgb, var(--paper-surface) 82%, transparent) 100%
+    );
+    z-index: -1;
+    transition: opacity 220ms ease;
+  }
+
+  .project-card.has-hero > * {
+    position: relative;
+    z-index: 1;
+    transition: opacity 220ms ease;
+  }
+
+  .project-card.has-hero:hover::before {
+    opacity: 1;
+  }
+
+  .project-card.has-hero:hover::after {
+    opacity: 0;
+  }
+
+  .project-card.has-hero:hover > * {
+    opacity: 0;
+  }
+
+  .project-card.has-hero:focus-visible::before {
+    opacity: 0.48;
+  }
+
+  .project-card.has-hero:focus-visible::after {
+    opacity: 1;
+  }
+
+  .project-card.has-hero:focus-visible > * {
+    opacity: 1;
   }
 
   .project-meta,
@@ -126,6 +220,13 @@ function withBase(href: string) {
     font-size: 0.76rem;
     font-weight: 600;
     letter-spacing: 0.08em;
+  }
+
+  .project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
   }
 
   .project-card h2,
@@ -164,13 +265,13 @@ function withBase(href: string) {
   }
 
   @media (max-width: 720px) {
-    .project-grid {
-      grid-template-columns: 1fr;
-    }
-
     .project-card,
     .project-empty {
       padding: 20px;
+    }
+
+    .project-card {
+      min-height: 180px;
     }
   }
 </style>

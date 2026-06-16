@@ -3,6 +3,7 @@ title: 'Searchlight System'
 description: 'A volumetric searchlight system for Unity 6 URP. Built originally for Area58, later released commercially. Procedural cone mesh, Job System raycasts, depth buffer soft intersection.'
 date: '2025-06-01'
 draft: false
+heroImage: '../../assets/figure/groundtriplanar.PNG'
 tags:
   - asset
   - tool
@@ -65,6 +66,58 @@ the clipping. What looked like several separate problems — wall pass-through,
 triangle artifacts, cone clipping — turned out to be the same single-line
 bug in `BuildMesh`.
 
+<svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Inner-ring bug vs the Min() fix" style="width:100%; max-width:640px; height:auto; display:block; margin:24px auto; color:var(--paper-ink);">
+  <style>
+    .cone-ttl { font: 600 12px ui-monospace, monospace; fill: currentColor; }
+    .cone-sub { font: 10.5px ui-monospace, monospace; fill: var(--paper-ink-faint); }
+    .cone-lbl { font: 11px ui-monospace, monospace; fill: var(--paper-ink-soft); }
+    .cone-ln  { stroke: currentColor; stroke-width: 1.4; fill: none; }
+    .cone-thin{ stroke: currentColor; stroke-width: 1; fill: none; opacity: 0.45; }
+    .cone-bad { stroke: #b85a5a; stroke-width: 1.4; fill: none; }
+    .cone-fix { stroke: #4f7a52; stroke-width: 1.4; fill: none; }
+    .wall     { fill: var(--paper-ink); opacity: 0.18; }
+  </style>
+  <!-- LEFT: before fix -->
+  <text x="40" y="22" class="cone-ttl">Before: inner rings hard-coded to range × ringT</text>
+  <text x="40" y="38" class="cone-sub">inner rings clip through the wall</text>
+  <!-- apex -->
+  <circle cx="60" cy="130" r="3" class="cone-ln" fill="currentColor"/>
+  <!-- outer rim -->
+  <line x1="60" y1="130" x2="260" y2="70" class="cone-ln" />
+  <line x1="60" y1="130" x2="260" y2="190" class="cone-ln" />
+  <!-- wall -->
+  <rect x="170" y="60" width="14" height="140" class="wall" />
+  <text x="158" y="220" class="cone-sub">wall</text>
+  <!-- rim hits the wall, gets clamped to wall -->
+  <line x1="60" y1="130" x2="170" y2="100" class="cone-ln" />
+  <line x1="60" y1="130" x2="170" y2="160" class="cone-ln" />
+  <!-- inner rings: hardcoded at fixed fractions of range = pass through wall -->
+  <line x1="120" y1="112" x2="120" y2="148" class="cone-bad" stroke-dasharray="3 2" />
+  <line x1="180" y1="94"  x2="180" y2="166" class="cone-bad" stroke-dasharray="3 2" />
+  <line x1="220" y1="80"  x2="220" y2="180" class="cone-bad" stroke-dasharray="3 2" />
+  <text x="194" y="55" class="cone-lbl" fill="#b85a5a">inner rings clip wall</text>
+  <line x1="195" y1="58" x2="200" y2="78" stroke="#b85a5a" stroke-width="1"/>
+  <!-- RIGHT: after fix -->
+  <text x="360" y="22" class="cone-ttl">After: Min(range × ringT, hitDistances[i])</text>
+  <text x="360" y="38" class="cone-sub">inner rings clamp to the rim hit distance</text>
+  <circle cx="380" cy="130" r="3" class="cone-fix" fill="currentColor"/>
+  <!-- outer rim -->
+  <line x1="380" y1="130" x2="580" y2="70" class="cone-ln" />
+  <line x1="380" y1="130" x2="580" y2="190" class="cone-ln" />
+  <!-- wall -->
+  <rect x="490" y="60" width="14" height="140" class="wall" />
+  <text x="478" y="220" class="cone-sub">wall</text>
+  <!-- rim hits wall -->
+  <line x1="380" y1="130" x2="490" y2="100" class="cone-ln" />
+  <line x1="380" y1="130" x2="490" y2="160" class="cone-ln" />
+  <!-- inner rings: clamped to wall hit distance, all sit at the wall plane -->
+  <line x1="440" y1="113" x2="440" y2="147" class="cone-fix" />
+  <line x1="470" y1="105" x2="470" y2="155" class="cone-fix" />
+  <line x1="490" y1="100" x2="490" y2="160" class="cone-fix" />
+  <text x="510" y="55" class="cone-lbl" fill="#4f7a52">inner rings stop at wall</text>
+  <line x1="510" y1="58" x2="500" y2="80" stroke="#4f7a52" stroke-width="1"/>
+</svg>
+
 ## The UV seam
 
 A hard vertical line ran the full length of the cone even with noise at zero.
@@ -74,6 +127,28 @@ in the vertex array, so their normals diverge and create a visible hard edge.
 A `SmoothSeamNormals` method finds all co-located vertex pairs after normal
 recalculation and averages them. Runs in O(n²) but with only 101 vertices at
 default settings the cost is under 0.1ms.
+
+```csharp
+// SmoothSeamNormals — RecalculateNormals leaves UV.x=0 and UV.x=1 verts
+// with divergent normals even though they share a world position. Find
+// every co-located pair, average their normals, write the result back.
+for (int i = 0; i < vertices.Length; i++) {
+    Vector3 averaged = normals[i];
+    int count = 1;
+    for (int j = i + 1; j < vertices.Length; j++) {
+        if (Vector3.SqrMagnitude(vertices[i] - vertices[j]) < 0.0001f) {
+            averaged += normals[j];
+            count++;
+        }
+    }
+    if (count > 1) {
+        averaged = (averaged / count).normalized;
+        for (int j = i; j < vertices.Length; j++)
+            if (Vector3.SqrMagnitude(vertices[i] - vertices[j]) < 0.0001f)
+                normals[j] = averaged;
+    }
+}
+```
 
 <iframe width="100%" height="400" src="https://www.youtube.com/embed/Pjaej5-iFdo" frameborder="0" allowfullscreen></iframe>
 

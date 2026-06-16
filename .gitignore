@@ -29,3 +29,8 @@ AGENTS.md
 # generated font files
 scripts/fonts/ui-chars.txt
 public/fonts/lxgw-ui-subset.woff2
+
+# IP-sensitive source (Unity assets) — never commit
+src/assets/codes/
+# Large material textures — local only, web-sized versions will live elsewhere
+src/assets/materials/

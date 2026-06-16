@@ -3,6 +3,7 @@ title: 'Moonlight Peaks Censer — Polycount Challenge'
 description: 'A stylized censer-burner prop made for the Polycount November–December bi-monthly environment art challenge. Low-poly is done; high-poly and texturing were paused when paid work took over.'
 date: '2024-11-15'
 draft: false
+heroImage: '../../assets/figure/censerburnerrender.png'
 tags:
   - prop
   - stylized
@@ -34,8 +35,12 @@ single design instead of replicating one sheet exactly.
 ## What got done
 
 The low-poly model is complete. Silhouette, proportions, and overall
-structure are where I want them. The base, the burner body, and the chain
-attachment points all came out close to the merged-reference design.
+structure are where I want them. The base, the burner body, and the
+chain attachment points all came out close to the merged-reference
+design. The viewer below is the live model — drag to orbit, toggle
+wireframe to see the topology.
+
+<div data-model-viewer data-src="/models/essenceextractor.glb" data-name="Essence Extractor — low-poly"></div>
 
 ![Censer burner — work in progress](../../assets/figure/censerburner.PNG)
 

@@ -3,6 +3,7 @@ title: 'What Comes After — GGJ 2020'
 description: 'A dual-medium game built for Global Game Jam 2020. A board game and a mobile game designed to be played simultaneously, set in a dystopian Art Deco world.'
 date: '2020-02-01'
 draft: false
+heroImage: '../../assets/figure/sarper-dundar-wca.jpg'
 tags:
   - game
   - jam

@@ -3,6 +3,7 @@ title: 'Area58 — Lead 3D Artist & Technical Artist'
 description: 'Co-op horror stealth game in development. Led a small 3D art team and built the shader systems — including work that became two commercial Asset Store products.'
 date: '2025-04-01'
 draft: false
+heroImage: '../../assets/figure/area58main.jpg'
 tags:
   - game
   - shader
@@ -68,6 +69,44 @@ the surface normal's Y axis into separate positive and negative values and
 running them through the blend calculation independently. The standard
 Shader Graph triplanar node can't do this — it had to be built manually.
 
+<svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Standard 3-face triplanar vs 4-face cylindrical triplanar diagram" style="width:100%; max-width:640px; height:auto; display:block; margin:24px auto; color:var(--paper-ink);">
+  <style>
+    .tri-ttl { font: 600 12px ui-monospace, monospace; fill: currentColor; }
+    .tri-sub { font: 10.5px ui-monospace, monospace; fill: var(--paper-ink-faint); }
+    .tri-lbl { font: 11px ui-monospace, monospace; fill: var(--paper-ink-soft); }
+    .tri-ln  { stroke: currentColor; stroke-width: 1.2; fill: none; }
+    .tri-dim { stroke: var(--paper-ink-faint); stroke-width: 1; stroke-dasharray: 3 3; fill: none; }
+    .tri-fil { fill: currentColor; }
+  </style>
+  <text x="100" y="22" class="tri-ttl">Standard 3-face triplanar</text>
+  <text x="100" y="38" class="tri-sub">|Y| — top and bottom share one texture</text>
+  <rect x="100" y="60" width="140" height="160" rx="8" class="tri-ln" />
+  <ellipse cx="170" cy="60" rx="70" ry="14" class="tri-ln" />
+  <ellipse cx="170" cy="220" rx="70" ry="14" class="tri-dim" />
+  <line x1="170" y1="60" x2="170" y2="32" class="tri-ln" /><polygon points="166,36 170,28 174,36" class="tri-fil" />
+  <text x="178" y="32" class="tri-lbl">|Y| → top</text>
+  <line x1="100" y1="140" x2="72" y2="140" class="tri-ln" /><polygon points="76,136 68,140 76,144" class="tri-fil" />
+  <text x="14" y="138" class="tri-lbl">|X| → side</text>
+  <line x1="240" y1="140" x2="268" y2="140" class="tri-ln" /><polygon points="264,136 272,140 264,144" class="tri-fil" />
+  <text x="276" y="138" class="tri-lbl">|Z| → side</text>
+  <text x="118" y="262" class="tri-sub">bottom samples top texture</text>
+  <text x="400" y="22" class="tri-ttl">4-face cylindrical triplanar</text>
+  <text x="400" y="38" class="tri-sub">Y split into +Y / −Y — bottom has its own texture</text>
+  <rect x="400" y="60" width="140" height="160" rx="8" class="tri-ln" />
+  <ellipse cx="470" cy="60" rx="70" ry="14" class="tri-ln" />
+  <ellipse cx="470" cy="220" rx="70" ry="14" class="tri-ln" />
+  <line x1="470" y1="60" x2="470" y2="32" class="tri-ln" /><polygon points="466,36 470,28 474,36" class="tri-fil" />
+  <text x="478" y="32" class="tri-lbl">+Y → top</text>
+  <line x1="400" y1="140" x2="372" y2="140" class="tri-ln" /><polygon points="376,136 368,140 376,144" class="tri-fil" />
+  <text x="314" y="138" class="tri-lbl">|X| → side</text>
+  <line x1="540" y1="140" x2="568" y2="140" class="tri-ln" /><polygon points="564,136 572,140 564,144" class="tri-fil" />
+  <text x="576" y="138" class="tri-lbl">|Z| → side</text>
+  <line x1="470" y1="220" x2="470" y2="252" class="tri-ln" /><polygon points="466,248 470,256 474,248" class="tri-fil" />
+  <text x="408" y="265" class="tri-lbl">−Y → bottom (separate)</text>
+</svg>
+
+![Triplanar blend — sides, top, bottom resolved cleanly across the surface](../../assets/figure/area58triplanarblend.PNG)
+
 **The epsilon fix.** The blend weights are calculated by raising the surface
 normal to a high power, which produces extremely tiny floating point values
 across most of the surface. Dividing those tiny numbers by each other to
@@ -77,11 +116,45 @@ denominator kept the math stable. The original Synty shader had this fix
 in their source; finding it meant reading the actual .shader file rather
 than relying on documentation.
 
+```hlsl
+// Triplanar weights — pow() collapses most of the surface to near-zero,
+// so adding +1e-5 to the denominator keeps the divide stable.
+float3 projNormal = pow(abs(WorldNormal), Falloff);
+projNormal /= (projNormal.x + projNormal.y + projNormal.z) + 0.00001;
+```
+
+![Missing epsilon — the blurry rectangular patch instead of a clean round cap](../../assets/figure/area58missingepsilon.PNG)
+
 **RNM normal blending.** Shader Graph's built-in triplanar blends normal
 maps using Whiteout blending, which pinches at the seams between faces.
 Synty's original used Reoriented Normal Mapping (RNM) which handles the
 transition correctly. I implemented this as a Custom Function HLSL node
-taken directly from the original shader source.
+taken directly from the original shader source:
+
+```hlsl
+float3 nsign = sign(WorldNormal);
+
+// Sample the three axis-aligned projections; the nsign factor flips the
+// UV so back-facing slices don't render mirrored.
+float4 xSamp = SAMPLE_TEXTURE2D(TopTex, Sampler, Tiling * WorldPos.zy * float2( nsign.x, 1.0));
+float4 ySamp = SAMPLE_TEXTURE2D(TopTex, Sampler, Tiling * WorldPos.xz * float2( nsign.y, 1.0));
+float4 zSamp = SAMPLE_TEXTURE2D(TopTex, Sampler, Tiling * WorldPos.xy * float2(-nsign.z, 1.0));
+
+float3 xN = UnpackNormal(xSamp);
+float3 yN = UnpackNormal(ySamp);
+float3 zN = UnpackNormal(zSamp);
+
+// Reoriented Normal Mapping — each axis projection is rebased onto the
+// surface normal before being weighted together, instead of Whiteout-
+// blended (which pinches at the seams).
+float3 xNorm = float3(xN.x * nsign.x  + WorldNormal.z, xN.y + WorldNormal.y, WorldNormal.x).zyx;
+float3 yNorm = float3(yN.x * nsign.y  + WorldNormal.x, yN.y + WorldNormal.z, WorldNormal.y).xzy;
+float3 zNorm = float3(zN.x * -nsign.z + WorldNormal.x, zN.y + WorldNormal.y, WorldNormal.z).xyz;
+
+Out = normalize(xNorm * projNormal.x + yNorm * projNormal.y + zNorm * projNormal.z);
+```
+
+![RNM normal blending — clean transitions between triplanar faces](../../assets/figure/area58triplanarnormal.PNG)
 
 **Magio Pro compatibility.** The rebuilt shader exposes `_WetnessAmount`,
 `_DissolveAmount`, and `_OverlayAmount` as float properties so Magio Pro
@@ -101,16 +174,27 @@ intersection with scene geometry. Job System parallelism keeps the CPU
 cost flat regardless of how many lights are active. Also released as a
 standalone commercial asset.
 
-## Lab wall — unused
+## See also
 
-A lab interior wall material built during an earlier art direction.
-Tileable panels with seam grime and edge wear, intended for the lab
-environments before the look of the game shifted. The art direction moved
-elsewhere and the material never made it into the shipping scenes.
+- [**Searchlight System**](/projects/searchlight-system) — full
+  breakdown of the volumetric cone mesh and Job System raycasts
+- [**Low Poly Wet Surfaces**](/projects/wet-surfaces) — full breakdown
+  of the puddle and rain-ripple systems
 
-![Area58 lab wall result](../../assets/figure/area58labwall.PNG)
+## Lab floor — unused
 
-![Area58 lab wall node graph](../../assets/figure/area58labwallnode.PNG)
+A tileable floor material built in Substance Designer for the lab
+environments during an earlier art direction. Seam grime and edge wear.
+The art direction shifted before it shipped.
+
+![Lab floor reference render](../../assets/figure/area58labwall.PNG)
+
+The viewer below is the Substance output running on three.js with PBR
+lighting; drag to orbit, switch shape, vary tile density.
+
+<div data-material-viewer data-slug="labfloor" data-name="Lab floor — Substance Designer" data-maps="basecolor,normal,roughness,metallic,ao,height" data-mesh="plane" data-tiles="2"></div>
+
+![Lab floor — Substance Designer graph](../../assets/figure/area58labwallnode.PNG)
 
 ---
 

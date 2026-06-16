@@ -8,6 +8,7 @@
     <aside class="flow-column side-column">
       <slot name="profile" />
       <slot name="links" />
+      <slot name="connect" />
     </aside>
   </section>
 </main>
@@ -103,6 +104,10 @@
 
     .flow-grid :global(.nav-card) {
       order: 2;
+    }
+
+    .flow-grid :global(.connect-card) {
+      order: 3;
     }
 
     .flow-grid :global(.doing-card) {

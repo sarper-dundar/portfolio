@@ -13,7 +13,7 @@ const { title, description, date, heroImage } = Astro.props;
 const palette = await getThemePalette();
 ---
 
-<html lang="zh-CN" data-palette={palette}>
+<html lang="zh-CN" data-palette={palette} data-theme="dark">
   <head>
     <BaseHead title={title} description={description} />
     <style>

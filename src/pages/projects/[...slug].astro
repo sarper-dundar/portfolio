@@ -1,5 +1,6 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
+import Icon from '../../components/Icon.astro';
 import BlogArticle from '../../layouts/BlogArticle.astro';
 
 export async function getStaticPaths() {
@@ -15,6 +16,21 @@ type Props = CollectionEntry<'projects'>;
 
 const project = Astro.props;
 const { Content, headings } = await render(project);
+
+function describeStore(url: string): { label: string; icon: string } {
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, '');
+    if (host === 'assetstore.unity.com') return { label: 'View on Asset Store', icon: 'package' };
+    if (host === 'store.steampowered.com') return { label: 'View on Steam', icon: 'external' };
+    if (host.endsWith('gumroad.com')) return { label: 'Get on Gumroad', icon: 'external' };
+    if (host === 'polycount.com') return { label: 'Thread on Polycount', icon: 'external' };
+    return { label: 'View product', icon: 'external' };
+  } catch {
+    return { label: 'View product', icon: 'external' };
+  }
+}
+
+const store = project.data.storeUrl ? describeStore(project.data.storeUrl) : null;
 ---
 
 <BlogArticle
@@ -22,5 +38,52 @@ const { Content, headings } = await render(project);
   headings={headings}
   sidebar={{ enable: false, ...project.data.sidebar }}
 >
+  {
+    store && project.data.storeUrl && (
+      <a class="project-cta" href={project.data.storeUrl} target="_blank" rel="noreferrer">
+        <Icon name={store.icon} size={17} />
+        <span>{store.label}</span>
+      </a>
+    )
+  }
   <Content />
 </BlogArticle>
+
+<script>
+  import { mountMaterialViewers } from '../../utils/material-viewer';
+  import { mountModelViewers } from '../../utils/model-viewer';
+  import { mountLabDemos } from '../../utils/shaders';
+  mountMaterialViewers();
+  mountModelViewers();
+  mountLabDemos();
+</script>
+
+<style>
+  .project-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 28px;
+    padding: 10px 16px;
+    border: 1px solid var(--paper-line-strong);
+    border-radius: 8px;
+    background: var(--paper-control);
+    color: var(--paper-ink);
+    font-family: var(--font-ui-label);
+    font-size: 0.92rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: var(--paper-shadow);
+    transition:
+      transform 180ms ease,
+      background 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .project-cta:hover {
+    background: var(--paper-control-hover);
+    border-color: var(--paper-accent);
+    color: var(--paper-accent);
+    transform: translateY(-1px);
+  }
+</style>

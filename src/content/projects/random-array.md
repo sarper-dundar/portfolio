@@ -3,6 +3,7 @@ title: 'Random Array — Blender Add-on'
 description: 'A Blender add-on for randomised array placement. Built to solve a roof tile problem on a client commission. Free on Gumroad.'
 date: '2023-01-01'
 draft: false
+heroImage: '../../assets/figure/random-array-result.PNG'
 tags:
   - tool
   - study

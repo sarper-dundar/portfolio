@@ -1,0 +1,96 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import BlogTopNav from '../components/blog/BlogTopNav.astro';
+import { getSiteConfig } from '../data/site';
+
+const { site, theme } = await getSiteConfig();
+const palette = theme.palette;
+---
+
+<!doctype html>
+<html lang="en" data-palette={palette} data-theme="dark">
+  <head>
+    <BaseHead
+      title={`lab | ${site.title}`}
+      description="Interactive shader demos — Unity URP work ported to GLSL / three.js."
+    />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      main {
+        width: min(100%, var(--layout-shell-width));
+        margin: 0 auto;
+        padding: 126px var(--layout-page-gutter) var(--layout-page-bottom);
+      }
+      .lab-hero {
+        max-width: 720px;
+        margin: 0 auto clamp(40px, 6vw, 72px);
+        text-align: left;
+      }
+      .lab-hero h1 {
+        margin: 0;
+        color: var(--paper-ink);
+        font-size: clamp(2.4rem, 6vw, 4.2rem);
+        font-weight: 400;
+        line-height: 0.98;
+      }
+      .lab-hero p {
+        max-width: 56ch;
+        margin: 16px 0 0;
+        color: var(--paper-ink-soft);
+        font-family: var(--font-serif-cn);
+        font-size: clamp(0.96rem, 1.5vw, 1.1rem);
+        line-height: 1.78;
+      }
+      .lab-hero p + p {
+        margin-top: 10px;
+        color: var(--paper-ink-faint);
+        font-family: var(--font-meta);
+        font-size: 0.78rem;
+        line-height: 1.7;
+      }
+      .lab-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: clamp(28px, 4vw, 48px);
+      }
+      @media (min-width: 920px) {
+        .lab-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .lab-grid > .lab-demo:first-child {
+          grid-column: 1 / -1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <BlogTopNav />
+    <main data-pagefind-body>
+      <header class="lab-hero">
+        <h1>lab</h1>
+        <p>
+          Unity URP shader work, rebuilt in GLSL on three.js so the math is legible across
+          renderers. Each demo is the same algorithm as my asset-store version — drag to orbit, move
+          the sliders, open <em>view source</em> for the actual fragment shader.
+        </p>
+        <p>Work in progress. More demos as I port them.</p>
+      </header>
+
+      <section class="lab-grid" aria-label="Shader demos">
+        <article data-lab-demo="searchlight"></article>
+        <article data-lab-demo="ripples"></article>
+        <article data-lab-demo="puddle"></article>
+        <article data-lab-demo="triplanar"></article>
+      </section>
+    </main>
+    <Footer />
+
+    <script>
+      import { mountLabDemos } from '../utils/shaders';
+      mountLabDemos();
+    </script>
+  </body>
+</html>

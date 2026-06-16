@@ -3,6 +3,7 @@ title: 'Gym Simulator — UI Internship at Toxicality'
 description: 'Summer 2019 internship at Toxicality, an indie studio in Sofia, Bulgaria. UI design for their Android gym simulator. First abroad experience, arranged through AIESEC, and the internship that fulfilled my graphic-design degree requirement.'
 date: '2019-07-01'
 draft: false
+heroImage: '../../assets/figure/sarper-dundar-portfolio.jpg'
 tags:
   - ui
   - graphic-design
@@ -30,8 +31,6 @@ Android gym simulator.
 
 ![Gym Simulator UI — screen set 1](../../assets/figure/sarper-dundar-portfolio.jpg)
 
-![Gym Simulator UI — screen set 2](../../assets/figure/sarper-dundar-portfolio2.jpg)
-
 ## What the work was
 
 By the time I arrived, the game was essentially art-complete except for
@@ -39,6 +38,8 @@ the UI. That inverted the usual brief — instead of UI being one piece in
 an evolving art direction, the visual language was already locked, and my
 job was to make the UI fit a finished aesthetic rather than help define
 one.
+
+![Gym Simulator UI — screen set 2](../../assets/figure/sarper-dundar-portfolio2.jpg)
 
 The first few days were the hard part. The screens I produced from scratch
 didn't sit right alongside the existing art — wrong weight, wrong
@@ -48,6 +49,8 @@ then design within those constraints. By the end of the first week the
 UI was starting to read as part of the same product, and from there the
 remaining screens came together quickly. I finished the full UI pass
 ahead of the allocated time.
+
+![Gym Simulator UI — additional screens](../../assets/figure/gymsimulatorui.png)
 
 ## The work–life balance lesson
 

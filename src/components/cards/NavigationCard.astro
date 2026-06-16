@@ -36,7 +36,6 @@ function withBase(href: string) {
             <strong>{item.title}</strong>
             <small>{item.subtitle}</small>
           </span>
-          <Icon name="external" />
         </a>
       ))
     }
@@ -60,7 +59,7 @@ function withBase(href: string) {
 
   .nav-item {
     display: grid;
-    grid-template-columns: 28px minmax(0, 1fr) 18px;
+    grid-template-columns: 28px minmax(0, 1fr);
     gap: 12px;
     align-items: center;
     padding: 8px 0;

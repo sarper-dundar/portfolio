@@ -15,10 +15,12 @@ interface Props {
   series?: { name: string; slug: string; current?: number; total?: number }[];
   heroImage?: ImageMetadata | string;
   showHeroImage?: boolean;
+  heroHeight?: 'compact' | 'banner';
   variant?: 'default' | 'archive';
   kicker?: string;
   pathname?: string;
   showPageView?: boolean;
+  status?: string;
 }
 
 const {
@@ -32,10 +34,12 @@ const {
   series = [],
   heroImage,
   showHeroImage = true,
+  heroHeight = 'compact',
   variant = 'default',
   kicker = 'Notebook entry',
   pathname = Astro.url.pathname,
   showPageView = false,
+  status,
 } = Astro.props;
 const wordCountLabel = `${wordCount.toLocaleString('en-US')} words`;
 const hasTags = tags.length > 0;
@@ -52,6 +56,13 @@ const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
     { 'article-header-archive': isArchiveHeader, 'archive-header-shared': isArchiveHeader },
   ]}
 >
+  {
+    showHeroImage && heroImage && heroHeight === 'banner' && (
+      <figure class="article-hero-banner">
+        <SmartImage width={1600} height={520} src={heroImage} alt="" />
+      </figure>
+    )
+  }
   {
     isArchiveHeader ? (
       <>
@@ -123,6 +134,11 @@ const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
           )}
           <span class="meta-item">{wordCountLabel}</span>
           <span class="meta-item">{readingTime}</span>
+          {status && (
+            <span class="meta-item">
+              <small class:list={['status-badge', `status-${status}`]}>{status}</small>
+            </span>
+          )}
           {showPageView && <PageView pathname={pathname} />}
           {hasTags && (
             <span class="meta-item tag-list">
@@ -168,7 +184,7 @@ const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
   }
 
   {
-    showHeroImage && heroImage && (
+    showHeroImage && heroImage && heroHeight === 'compact' && (
       <figure class="article-hero-image">
         <SmartImage width={1020} height={510} src={heroImage} alt="" />
       </figure>
@@ -299,6 +315,26 @@ const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
     content: '\00b7';
   }
 
+  .article-hero-banner {
+    width: 100%;
+    height: 260px;
+    margin: 0 0 22px;
+    overflow: hidden;
+    border: 1px solid var(--paper-line);
+    border-radius: 10px;
+    background: var(--paper-surface-muted);
+  }
+
+  .article-hero-banner :global(img) {
+    display: block;
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
   .article-hero-image {
     width: 100%;
     height: 84px;
@@ -339,6 +375,16 @@ const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
     .article-hero-image :global(img) {
       height: 84px;
       border-radius: 6px;
+    }
+
+    .article-hero-banner,
+    .article-hero-banner :global(img) {
+      height: 180px;
+      border-radius: 8px;
+    }
+
+    .article-hero-banner {
+      margin-bottom: 18px;
     }
   }
 </style>

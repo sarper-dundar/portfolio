@@ -30,8 +30,6 @@ const { site } = await getSiteConfig();
     const storageKey = 'navfolio-theme';
     const root = document.documentElement;
     const themeMeta = () => document.querySelector('meta[name="theme-color"]');
-    const systemTheme = () =>
-      window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     const storedTheme = () => {
       try {
         return localStorage.getItem(storageKey);
@@ -61,10 +59,10 @@ const { site } = await getSiteConfig();
       );
     };
     const syncThemeControls = () => {
-      applyTheme(root.dataset.theme || storedTheme() || systemTheme(), false);
+      applyTheme(root.dataset.theme || storedTheme() || 'dark', false);
     };
 
-    applyTheme(storedTheme() || systemTheme(), false);
+    applyTheme(storedTheme() || 'dark', false);
 
     if (!window.__navfolioTheme) {
       window.__navfolioTheme = {
@@ -88,10 +86,6 @@ const { site } = await getSiteConfig();
 
     document.addEventListener('DOMContentLoaded', syncThemeControls, { once: true });
     document.addEventListener('astro:page-load', syncThemeControls);
-
-    window.matchMedia?.('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
-      if (!storedTheme()) applyTheme(event.matches ? 'dark' : 'light', false);
-    });
   })();
 </script>
 <link rel="icon" href={assetPath('favicon.svg')} sizes="any" />
@@ -99,7 +93,7 @@ const { site } = await getSiteConfig();
 <link rel="icon" type="image/png" sizes="16x16" href={assetPath('favicon-16x16.png')} />
 <link rel="apple-touch-icon" sizes="180x180" href={assetPath('apple-touch-icon.png')} />
 <link rel="manifest" href={assetPath('manifest.json')} />
-<meta name="theme-color" content="#fdfdf9" />
+<meta name="theme-color" content="#171b18" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
   rel="alternate"

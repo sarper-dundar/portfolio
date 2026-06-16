@@ -1,5 +1,6 @@
 ---
 import FormattedDate from '../FormattedDate.astro';
+import { getTagColorClass } from '../../utils/tag-colors';
 
 interface Props {
   date: Date;
@@ -23,7 +24,7 @@ const { date, readingTime, tags } = Astro.props;
   </dl>
 
   <div class="tags" aria-label="Article tags">
-    {tags.map((tag) => <span>{tag}</span>)}
+    {tags.map((tag) => <span class:list={[getTagColorClass(tag)]}>{tag}</span>)}
   </div>
 </aside>
 
