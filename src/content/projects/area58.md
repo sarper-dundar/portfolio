@@ -176,9 +176,9 @@ standalone commercial asset.
 
 ## See also
 
-- [**Searchlight System**](/projects/searchlight-system) — full
+- [**Searchlight System**](/portfolio/projects/searchlight-system/) — full
   breakdown of the volumetric cone mesh and Job System raycasts
-- [**Low Poly Wet Surfaces**](/projects/wet-surfaces) — full breakdown
+- [**Low Poly Wet Surfaces**](/portfolio/projects/wet-surfaces/) — full breakdown
   of the puddle and rain-ripple systems
 
 ## Lab floor — unused

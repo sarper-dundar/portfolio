@@ -3,7 +3,7 @@ title: 'Searchlight System'
 description: 'A volumetric searchlight system for Unity 6 URP. Built originally for Area58, later released commercially. Procedural cone mesh, Job System raycasts, depth buffer soft intersection.'
 date: '2025-06-01'
 draft: false
-heroImage: '../../assets/figure/groundtriplanar.PNG'
+heroImage: '../../assets/figure/searchlightheroimage.png'
 tags:
   - asset
   - tool
@@ -21,7 +21,7 @@ sidebar:
 
 **Status:** Released — Unity Asset Store ($34.99)  
 **Engine:** Unity 6, URP  
-**Origin:** Built for [Area58](/projects/area58), then released commercially
+**Origin:** Built for [Area58](/portfolio/projects/area58/), then released commercially
 
 The Area58 developer needed god rays. God rays weren't feasible at the time,
 so the goal became the next best thing — a volumetric searchlight that

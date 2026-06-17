@@ -41,7 +41,7 @@ Bruno's approach reframed SD for me as a _VFX texture_ tool, not just a
 PBR-tileable tool: the same shape and noise nodes I'd been using for
 walls suddenly read as brushes for animated masks and channel-packed
 particle data. That shift carried into the World Warriors materials and
-the [dwarf base material](/projects/grand-strategy-map) — both pure SD
+the [dwarf base material](/portfolio/projects/grand-strategy-map/) — both pure SD
 output applied in Unity URP.
 
 Parts 3 and 4 — Cascade — translated unexpectedly well to Unity's VFX

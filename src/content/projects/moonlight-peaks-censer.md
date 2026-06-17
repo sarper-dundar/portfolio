@@ -64,7 +64,7 @@ pretend the prop is finished.
 
 ## Why it paused
 
-A paid commission (the [World Warriors](/projects/world-warriors) fire-awareness
+A paid commission (the [World Warriors](/portfolio/projects/world-warriors/) fire-awareness
 project) came in shortly after the low-poly was done and took priority. By the
 time that finished, the bi-monthly window had closed and the piece sat on the
 back burner.

@@ -133,15 +133,16 @@ label = "Asset Store"
 href  = "https://assetstore.unity.com/publishers/140368"
 icon  = "package"
 
-# The "currently working on" list
+# The "currently working on" list (kept for future use; not rendered today —
+# the home page surfaces recent projects directly via RecentProjectsCard)
 [[config.home.doing]]
 text = "Low Poly Wet Surfaces — Unity Asset Store (WIP)"
 mark = "WIP"
 
 [[config.home.doing]]
-text = "Surface Text Placer — submitting to Asset Store"
-mark = "Soon"
+text = "Surface Text Placer — submitted to Asset Store"
+mark = "Live"
 
 [[config.home.doing]]
-text = "Grand strategy map rendering — learning JFA and compute shaders"
-mark = "Learning"
+text = "Fantasy grand strategy game — art across terrain, models, materials"
+mark = "Collab"

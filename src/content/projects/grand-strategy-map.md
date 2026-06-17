@@ -57,7 +57,7 @@ slowly destroys the land it spreads through. The material has to read
 as two things at once — industrial iron-working craftsmanship and an
 organic biological infection running through it.
 
-<div data-material-viewer data-slug="gigerbonewall" data-name="Dwarf base — Substance Designer" data-maps="basecolor,normal,roughness,metallic,ao,height" data-mesh="sphere" data-tiles="2"></div>
+<div data-material-viewer data-slug="gigerbonewall" data-name="Dwarf base — Substance Designer" data-maps="basecolor,normal,roughness,metallic,ao,height" data-mesh="cube" data-tiles="2"></div>
 
 **Direction from the writer (translated):**
 

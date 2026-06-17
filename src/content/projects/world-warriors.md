@@ -89,7 +89,7 @@ Road and paved-surface material.
 
 Metal panel with rust, edge wear, and weathering for industrial set dressing.
 
-<div data-material-viewer data-slug="rusted-panel" data-name="Rusted panel — Substance Designer" data-maps="basecolor,normal,roughness,metallic,ao,height" data-mesh="sphere" data-tiles="2"></div>
+<div data-material-viewer data-slug="rusted-panel" data-name="Rusted panel — Substance Designer" data-maps="basecolor,normal,roughness,metallic,ao,height" data-mesh="cube" data-tiles="2"></div>
 
 ![Rusted panel result](../../assets/figure/rustedpanel.PNG)
 

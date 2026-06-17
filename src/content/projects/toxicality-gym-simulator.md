@@ -1,7 +1,7 @@
 ---
 title: 'Gym Simulator — UI Internship at Toxicality'
-description: 'Summer 2019 internship at Toxicality, an indie studio in Sofia, Bulgaria. UI design for their Android gym simulator. First abroad experience, arranged through AIESEC, and the internship that fulfilled my graphic-design degree requirement.'
-date: '2019-07-01'
+description: 'September–November 2019 internship at Toxicality, an indie studio in Sofia, Bulgaria. UI design for their Android gym simulator. First abroad experience, arranged through AIESEC, and the internship that fulfilled my graphic-design degree requirement.'
+date: '2019-09-01'
 draft: false
 heroImage: '../../assets/figure/sarper-dundar-portfolio.jpg'
 tags:
@@ -18,7 +18,7 @@ sidebar:
 
 # Gym Simulator — UI Internship at Toxicality
 
-**Year:** Summer 2019
+**Year:** September–November 2019
 **Studio:** Toxicality — indie studio, Sofia, Bulgaria
 **Platform:** Android
 **Role:** UI design intern
@@ -26,8 +26,8 @@ sidebar:
 
 My first job at an indie studio, my first time working abroad, and the
 required internship for my graphic design degree. AIESEC arranged the
-placement and I spent the summer in Sofia working on UI for Toxicality's
-Android gym simulator.
+placement and I spent September through November in Sofia working on UI for
+Toxicality's Android gym simulator.
 
 ![Gym Simulator UI — screen set 1](../../assets/figure/sarper-dundar-portfolio.jpg)
 
