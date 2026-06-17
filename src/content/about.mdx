@@ -6,7 +6,40 @@ sidebar:
   enable: false
 ---
 
+import resumeUrl from '../assets/figure/Sarper_Dundar_Resume_2026.pdf?url';
+
 # About
+
+<p>
+  <a href={resumeUrl} download class="resume-download">
+    Download résumé (PDF)
+  </a>
+</p>
+
+<style>{`
+  .resume-download {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 1px solid var(--paper-line-strong, var(--paper-line));
+    border-radius: 6px;
+    background: var(--paper-surface);
+    color: var(--paper-ink);
+    font-family: var(--font-ui-label);
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition:
+      transform 160ms ease,
+      background 160ms ease,
+      border-color 160ms ease;
+  }
+  .resume-download:hover {
+    border-color: var(--paper-accent);
+    background: var(--paper-control-hover);
+    transform: translateY(-1px);
+  }
+`}</style>
 
 I'm Sarper Dundar, a technical artist based in Bursa, Turkey. I build Unity
 tools, VFX assets, and shaders for indie developers — publishing under the

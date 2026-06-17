@@ -1,0 +1,226 @@
+---
+import { getCollection } from 'astro:content';
+import FormattedDate from '../FormattedDate.astro';
+import Icon from '../Icon.astro';
+import { sortByDateDesc } from '../../utils/content-dates';
+
+const LIMIT = 4;
+
+const projectEntries = await getCollection('projects');
+const recent = sortByDateDesc(
+  projectEntries.filter((entry) => entry.id !== 'index' && !entry.data.draft),
+).slice(0, LIMIT);
+
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+function withBase(href: string) {
+  if (href === '/') {
+    return `${basePath}/` || '/';
+  }
+  return `${basePath}${href.startsWith('/') ? href : `/${href}`}`;
+}
+
+function resolveHeroImageUrl(heroImage: unknown): string | null {
+  if (!heroImage) return null;
+  if (typeof heroImage === 'string') return heroImage;
+  if (typeof heroImage === 'object' && heroImage !== null && 'src' in heroImage) {
+    const src = (heroImage as { src: unknown }).src;
+    return typeof src === 'string' ? src : null;
+  }
+  return null;
+}
+---
+
+<article class="glass-card recent-projects-card">
+  <header class="recent-head">
+    <h2><Icon name="folder" /> Recent projects</h2>
+    <a class="see-all" href={withBase('/projects/')}>See all →</a>
+  </header>
+
+  {
+    recent.length > 0 ? (
+      <div class="recent-grid">
+        {recent.map((project) => {
+          const heroUrl = resolveHeroImageUrl(project.data.heroImage);
+          return (
+            <a
+              class:list={['recent-card', heroUrl ? 'has-hero' : '']}
+              href={withBase(`/projects/${project.id}/`)}
+              style={heroUrl ? `--hero-image: url('${heroUrl}')` : undefined}
+            >
+              <div class="recent-card-overlay">
+                <span class="recent-meta">
+                  <FormattedDate date={project.data.date} />
+                  {project.data.status && (
+                    <small class:list={['status-badge', `status-${project.data.status}`]}>
+                      {project.data.status}
+                    </small>
+                  )}
+                </span>
+                <h3>{project.data.title}</h3>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    ) : (
+      <p class="recent-empty">No projects yet.</p>
+    )
+  }
+</article>
+
+<style>
+  .recent-projects-card {
+    padding: 24px 0 0;
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .recent-projects-card:hover {
+    border-color: transparent;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .recent-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 0 16px;
+  }
+
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    color: var(--paper-ink);
+    font-size: 1.06rem;
+  }
+
+  h2 :global(svg) {
+    width: 21px;
+    height: 21px;
+    color: var(--paper-accent);
+  }
+
+  .see-all {
+    color: var(--paper-ink-faint);
+    font-family: var(--font-ui-label);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .see-all:hover {
+    color: var(--paper-accent);
+  }
+
+  .recent-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  @media (max-width: 520px) {
+    .recent-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .recent-card {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    isolation: isolate;
+    min-height: 168px;
+    padding: 14px;
+    border: 1px solid var(--paper-line);
+    border-radius: 8px;
+    background: var(--paper-surface);
+    box-shadow: var(--paper-shadow);
+    color: var(--paper-ink);
+    text-decoration: none;
+    transition:
+      transform 200ms ease,
+      border-color 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .recent-card:hover {
+    border-color: var(--paper-line-strong);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px -14px rgba(0, 0, 0, 0.22);
+  }
+
+  .recent-card.has-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--hero-image);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.92;
+    transition: opacity 200ms ease;
+    z-index: -2;
+  }
+
+  .recent-card.has-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--paper-surface) 0%, transparent) 0%,
+      color-mix(in srgb, var(--paper-surface) 28%, transparent) 48%,
+      color-mix(in srgb, var(--paper-surface) 92%, transparent) 100%
+    );
+    z-index: -1;
+  }
+
+  .recent-card.has-hero:hover::before {
+    opacity: 1;
+  }
+
+  .recent-card-overlay {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    min-height: 140px;
+    gap: 6px;
+  }
+
+  .recent-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    color: var(--paper-ink-faint);
+    font-family: var(--font-ui-label);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  .recent-card.has-hero .recent-meta {
+    color: var(--paper-ink);
+  }
+
+  .recent-card h3 {
+    margin: 0;
+    color: var(--paper-ink);
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+
+  .recent-empty {
+    margin: 0;
+    color: var(--paper-ink-soft);
+  }
+</style>
