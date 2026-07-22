@@ -19,6 +19,32 @@ const { Content, headings } = await render(projectIndex);
 
 const relatedProjects = projects;
 
+const FILTER_TAG_ALLOWLIST = [
+  'hlsl',
+  'shader',
+  'substance-designer',
+  'materials',
+  'vfx',
+  'ui',
+  'environment',
+  'prop',
+  'tool',
+  'asset',
+  'game',
+  'urp',
+] as const;
+
+const tagCounts = new Map<string, number>();
+for (const project of projects) {
+  for (const tag of project.data.tags) {
+    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+  }
+}
+const filterTags = FILTER_TAG_ALLOWLIST.filter((tag) => tagCounts.has(tag)).map((tag) => ({
+  tag,
+  count: tagCounts.get(tag) ?? 0,
+}));
+
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 function withBase(href: string) {
@@ -52,36 +78,67 @@ function resolveHeroImageUrl(heroImage: unknown): string | null {
 
   {
     relatedProjects.length > 0 ? (
-      <section class="project-grid" aria-label="Projects">
-        {relatedProjects.map((project) => {
-          const heroUrl = resolveHeroImageUrl(project.data.heroImage);
-          return (
-            <a
-              class:list={['project-card', heroUrl ? 'has-hero' : '']}
-              href={withBase(`/projects/${project.id}/`)}
-              style={heroUrl ? `--hero-image: url('${heroUrl}')` : undefined}
-            >
-              <span class="project-meta">
-                <FormattedDate date={project.data.date} />
-                {project.data.status && (
-                  <small class:list={['status-badge', `status-${project.data.status}`]}>
-                    {project.data.status}
-                  </small>
-                )}
-              </span>
-              <h2>{project.data.title}</h2>
-              <p>{project.data.description}</p>
-              {project.data.tags.length > 0 && (
-                <span class="project-tags" aria-label="Project tags">
-                  {project.data.tags.slice(0, 3).map((tag) => (
-                    <small class:list={[getTagColorClass(tag)]}>{tag}</small>
-                  ))}
+      <>
+        {filterTags.length > 1 && (
+          <section class="project-filter" aria-label="Filter projects by tag" data-project-filter>
+            <div class="project-filter-row">
+              <span class="project-filter-label">Filter</span>
+              <div class="project-filter-chips" role="group" aria-label="Tag filters">
+                {filterTags.map(({ tag, count }) => (
+                  <button
+                    type="button"
+                    class:list={['project-filter-chip', getTagColorClass(tag)]}
+                    data-tag={tag}
+                    aria-pressed="false"
+                  >
+                    <span class="project-filter-chip-label">{tag}</span>
+                    <span class="project-filter-chip-count" aria-hidden="true">
+                      {count}
+                    </span>
+                  </button>
+                ))}
+              </div>
+              <button type="button" class="project-filter-clear" data-project-filter-clear hidden>
+                Clear
+              </button>
+            </div>
+            <p class="project-filter-empty" data-project-filter-empty hidden>
+              No projects match the selected tags.
+            </p>
+          </section>
+        )}
+        <section class="project-grid" aria-label="Projects" data-project-grid>
+          {relatedProjects.map((project) => {
+            const heroUrl = resolveHeroImageUrl(project.data.heroImage);
+            return (
+              <a
+                class:list={['project-card', heroUrl ? 'has-hero' : '']}
+                href={withBase(`/projects/${project.id}/`)}
+                style={heroUrl ? `--hero-image: url('${heroUrl}')` : undefined}
+                data-tags={project.data.tags.join(',')}
+              >
+                <span class="project-meta">
+                  <FormattedDate date={project.data.date} />
+                  {project.data.status && (
+                    <small class:list={['status-badge', `status-${project.data.status}`]}>
+                      {project.data.status}
+                    </small>
+                  )}
                 </span>
-              )}
-            </a>
-          );
-        })}
-      </section>
+                <h2>{project.data.title}</h2>
+                <p>{project.data.description}</p>
+                {project.data.tags.length > 0 && (
+                  <span class="project-tags" aria-label="Project tags">
+                    {project.data.tags.slice(0, 3).map((tag) => (
+                      <small class:list={[getTagColorClass(tag)]}>{tag}</small>
+                    ))}
+                  </span>
+                )}
+              </a>
+            );
+          })}
+        </section>
+      </>
     ) : (
       <section class="project-empty" aria-label="Projects empty state">
         <span aria-hidden="true">01</span>
@@ -95,11 +152,174 @@ function resolveHeroImageUrl(heroImage: unknown): string | null {
   }
 </BlogArticle>
 
+<script>
+  const root = document.querySelector<HTMLElement>('[data-project-filter]');
+  const grid = document.querySelector<HTMLElement>('[data-project-grid]');
+  if (root && grid) {
+    const chips = Array.from(root.querySelectorAll<HTMLButtonElement>('.project-filter-chip'));
+    const clearBtn = root.querySelector<HTMLButtonElement>('[data-project-filter-clear]');
+    const emptyMsg = root.querySelector<HTMLElement>('[data-project-filter-empty]');
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>('.project-card'));
+
+    const active = new Set<string>();
+
+    const readUrl = () => {
+      const raw = new URLSearchParams(window.location.search).get('tag');
+      if (!raw) return;
+      for (const t of raw
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean)) {
+        active.add(t);
+      }
+    };
+
+    const writeUrl = () => {
+      const url = new URL(window.location.href);
+      if (active.size > 0) {
+        url.searchParams.set('tag', Array.from(active).join(','));
+      } else {
+        url.searchParams.delete('tag');
+      }
+      window.history.replaceState({}, '', url.toString());
+    };
+
+    const applyFilter = () => {
+      let visible = 0;
+      for (const card of cards) {
+        const cardTags = (card.dataset.tags ?? '').split(',').filter(Boolean);
+        const show = active.size === 0 || cardTags.some((t) => active.has(t));
+        card.hidden = !show;
+        if (show) visible++;
+      }
+      if (emptyMsg) emptyMsg.hidden = visible !== 0;
+      if (clearBtn) clearBtn.hidden = active.size === 0;
+      for (const chip of chips) {
+        const on = active.has(chip.dataset.tag ?? '');
+        chip.setAttribute('aria-pressed', on ? 'true' : 'false');
+        chip.classList.toggle('is-active', on);
+      }
+    };
+
+    for (const chip of chips) {
+      chip.addEventListener('click', () => {
+        const tag = chip.dataset.tag;
+        if (!tag) return;
+        if (active.has(tag)) active.delete(tag);
+        else active.add(tag);
+        applyFilter();
+        writeUrl();
+      });
+    }
+
+    clearBtn?.addEventListener('click', () => {
+      active.clear();
+      applyFilter();
+      writeUrl();
+    });
+
+    readUrl();
+    applyFilter();
+  }
+</script>
+
 <style>
   .project-meta,
   .project-empty span,
-  .project-tags small {
+  .project-tags small,
+  .project-filter-label,
+  .project-filter-chip,
+  .project-filter-clear {
     font-family: var(--font-ui-label);
+  }
+
+  .project-filter {
+    margin-top: 28px;
+  }
+
+  .project-filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .project-filter-label {
+    color: var(--paper-ink-faint);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-right: 4px;
+  }
+
+  .project-filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex: 1 1 auto;
+  }
+
+  .project-filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border: 1px solid var(--paper-line);
+    border-radius: 999px;
+    background: var(--paper-surface);
+    color: var(--paper-ink-soft);
+    font-size: 0.74rem;
+    cursor: pointer;
+    transition:
+      border-color 160ms ease,
+      background 160ms ease,
+      color 160ms ease;
+  }
+
+  .project-filter-chip:hover {
+    border-color: var(--paper-line-strong);
+    background: var(--paper-control-hover);
+    color: var(--paper-ink);
+  }
+
+  .project-filter-chip.is-active {
+    border-color: var(--paper-ink);
+    background: var(--paper-ink);
+    color: var(--paper-surface);
+  }
+
+  .project-filter-chip-count {
+    opacity: 0.65;
+    font-size: 0.68rem;
+  }
+
+  .project-filter-chip.is-active .project-filter-chip-count {
+    opacity: 0.8;
+  }
+
+  .project-filter-clear {
+    padding: 4px 10px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--paper-ink-faint);
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition:
+      border-color 160ms ease,
+      color 160ms ease;
+  }
+
+  .project-filter-clear:hover {
+    border-color: var(--paper-line);
+    color: var(--paper-ink);
+  }
+
+  .project-filter-empty {
+    margin: 18px 0 0;
+    color: var(--paper-ink-faint);
+    font-size: 0.9rem;
   }
 
   .project-card p,
@@ -144,6 +364,10 @@ function resolveHeroImageUrl(heroImage: unknown): string | null {
       border-color 200ms ease,
       background 200ms ease,
       box-shadow 200ms ease;
+  }
+
+  .project-card[hidden] {
+    display: none;
   }
 
   .project-card:hover {
