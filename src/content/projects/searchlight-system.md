@@ -166,7 +166,3 @@ completing handles across frames. Custom URP unlit shaders with
 How the depth buffer works and how to write a URP Renderer Feature to expose it.
 
 <iframe width="100%" height="400" src="https://www.youtube.com/embed/G0VtZZOzl7Q" frameborder="0" allowfullscreen></iframe>
-
-_There is one known pending fix — a VFX error when an incorrect asset is
-assigned to the dust particle slot. Fix is adding `HasFloat`/`HasVector4`
-checks before `SetFloat` calls in `SyncVFX`. Update not yet pushed._
