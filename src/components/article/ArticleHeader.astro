@@ -3,6 +3,7 @@ import SmartImage from '../SmartImage.astro';
 import PageView from '../comments/PageView.astro';
 import FormattedDate from '../FormattedDate.astro';
 import Icon from '../Icon.astro';
+import { slugifyGroupName } from '../../utils/content-groups';
 
 interface Props {
   title: string;
@@ -21,6 +22,8 @@ interface Props {
   pathname?: string;
   showPageView?: boolean;
   status?: string;
+  /** Blog tags resolve to /blog/tags/; other collections have no tag archive. */
+  linkTags?: boolean;
 }
 
 const {
@@ -40,6 +43,7 @@ const {
   pathname = Astro.url.pathname,
   showPageView = false,
   status,
+  linkTags = false,
 } = Astro.props;
 const wordCountLabel = `${wordCount.toLocaleString('en-US')} words`;
 const hasTags = tags.length > 0;
@@ -48,6 +52,11 @@ const hasSeries = series.length > 0;
 const hasGroups = hasCategories || hasSeries;
 const isArchiveHeader = variant === 'archive';
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const TagChip = linkTags ? 'a' : 'span';
+const tagItems = tags.map((tag) => ({
+  name: tag,
+  href: linkTags ? `${basePath}/blog/tags/${slugifyGroupName(tag)}/` : undefined,
+}));
 ---
 
 <header
@@ -82,8 +91,10 @@ const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
             {showPageView && <PageView pathname={pathname} />}
             {hasTags && (
               <span class="meta-item tag-list">
-                {tags.map((tag) => (
-                  <span class="tag">#{tag}</span>
+                {tagItems.map((item) => (
+                  <TagChip class="tag" href={item.href}>
+                    #{item.name}
+                  </TagChip>
                 ))}
               </span>
             )}
@@ -142,8 +153,10 @@ const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
           {showPageView && <PageView pathname={pathname} />}
           {hasTags && (
             <span class="meta-item tag-list">
-              {tags.map((tag) => (
-                <span class="tag">#{tag}</span>
+              {tagItems.map((item) => (
+                <TagChip class="tag" href={item.href}>
+                  #{item.name}
+                </TagChip>
               ))}
             </span>
           )}
@@ -260,6 +273,16 @@ const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
     color: var(--paper-accent);
     font-family: var(--font-serif-cn);
     font-weight: 700;
+  }
+
+  a.tag {
+    text-decoration: none;
+  }
+
+  a.tag:hover {
+    text-decoration: underline;
+    text-decoration-color: rgba(102, 125, 109, 0.32);
+    text-underline-offset: 3px;
   }
 
   .group-meta-line {

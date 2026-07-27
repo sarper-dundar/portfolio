@@ -1,11 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
-import { getAllCategories, getAllSeries } from '../../utils/content-groups';
+import { getAllCategories, getAllSeries, getAllTags } from '../../utils/content-groups';
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
 const posts = await getCollection('blog');
 const categoryCount = getAllCategories(posts).length;
 const seriesCount = getAllSeries(posts).length;
+const tagCount = getAllTags(posts).length;
 ---
 
 <nav class="group-nav" aria-label="Blog browsing groups">
@@ -23,12 +24,19 @@ const seriesCount = getAllSeries(posts).length;
     </span>
     <small>Follow connected notes</small>
   </a>
+  <a href={`${basePath}/blog/tags/`}>
+    <span>
+      Tags
+      <b>{tagCount}</b>
+    </span>
+    <small>Browse by keyword</small>
+  </a>
 </nav>
 
 <style>
   .group-nav {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 12px;
     margin: calc(var(--page-header-spacing) * -0.45) 0 34px;
   }

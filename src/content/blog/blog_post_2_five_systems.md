@@ -8,7 +8,7 @@ tags:
   - worldbuilding
   - design
 categories:
-  - 'Worldbuilding'
+  - 'Magic Systems'
 series:
   - 'Kazankor'
 comments: false

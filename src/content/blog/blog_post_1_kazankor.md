@@ -8,7 +8,7 @@ tags:
   - worldbuilding
   - design
 categories:
-  - 'Worldbuilding'
+  - 'Setting Overview'
 series:
   - 'Kazankor'
 comments: false

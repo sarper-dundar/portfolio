@@ -1,0 +1,119 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import BackLink from '../../../components/blog/BackLink.astro';
+import BlogTopNav from '../../../components/blog/BlogTopNav.astro';
+import { getSiteConfig } from '../../../data/site';
+import { getAllTags } from '../../../utils/content-groups';
+
+const { site, theme } = await getSiteConfig();
+const palette = theme.palette;
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const tags = getAllTags(await getCollection('blog', ({ data }) => !data.draft));
+---
+
+<!doctype html>
+<html lang="en" data-palette={palette} data-theme="dark">
+  <head>
+    <BaseHead title={`${site.title} | Tags`} description={site.description} />
+    <style>
+      main {
+        width: min(100%, var(--layout-shell-width));
+        max-width: none;
+        padding: 118px var(--layout-page-gutter) var(--layout-page-bottom);
+      }
+
+      .tag-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .tag-chip {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        min-height: 38px;
+        padding: 6px 14px;
+        border: 1px solid var(--paper-line);
+        border-radius: 999px;
+        background: var(--paper-control);
+        color: var(--paper-accent);
+        font-family: var(--font-serif-cn);
+        font-size: 1rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition:
+          transform 180ms ease,
+          border-color 180ms ease,
+          background 180ms ease;
+      }
+
+      .tag-chip:hover {
+        border-color: var(--paper-line-strong);
+        background: var(--paper-control-hover);
+        transform: translateY(-1px);
+      }
+
+      .tag-count {
+        display: inline-grid;
+        min-width: 24px;
+        height: 22px;
+        place-items: center;
+        border: 1px solid var(--paper-line);
+        border-radius: 999px;
+        background: var(--paper-bg);
+        color: var(--paper-ink-muted);
+        font-family: var(--font-meta);
+        font-size: 0.74rem;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .empty-note {
+        max-width: 620px;
+        margin: 0;
+        color: var(--paper-ink-soft);
+        font-family: var(--font-serif-cn);
+        font-size: 1rem;
+        line-height: 1.75;
+      }
+
+      @media (max-width: 720px) {
+        main {
+          padding-top: 88px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <BlogTopNav />
+    <main data-pagefind-body>
+      <BackLink href="/blog/" label="Back to blog" />
+      <header class="archive-hero archive-header-shared page-header-spacing">
+        <div class="archive-header-main">
+          <p class="archive-kicker">Browse notes</p>
+          <h1 class="archive-title">Tags</h1>
+        </div>
+        <p class="archive-note">Every keyword used across the notes, cutting across categories.</p>
+      </header>
+
+      {
+        tags.length > 0 ? (
+          <section class="tag-cloud" aria-label="Blog tags">
+            {tags.map((tag) => (
+              <a class="tag-chip" href={`${basePath}/blog/tags/${tag.slug}/`}>
+                #{tag.name}
+                <span class="tag-count">{tag.count}</span>
+              </a>
+            ))}
+          </section>
+        ) : (
+          <p class="empty-note">No tags have been added yet.</p>
+        )
+      }
+    </main>
+    <Footer />
+  </body>
+</html>

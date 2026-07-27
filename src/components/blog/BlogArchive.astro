@@ -104,7 +104,9 @@ function getPageHref(pageNumber: number) {
                   {post.data.tags.length > 0 && (
                     <span class="post-tags">
                       {post.data.tags.map((tag) => (
-                        <span class="post-tag">#{tag}</span>
+                        <a class="post-tag" href={withBase(`/blog/tags/${slugifyGroupName(tag)}/`)}>
+                          #{tag}
+                        </a>
                       ))}
                     </span>
                   )}
@@ -282,6 +284,13 @@ function getPageHref(pageNumber: number) {
 
   .post-tag {
     color: var(--paper-accent);
+    text-decoration: none;
+  }
+
+  .post-tag:hover {
+    text-decoration: underline;
+    text-decoration-color: rgba(102, 125, 109, 0.32);
+    text-underline-offset: 3px;
   }
 
   .post-tag + .post-tag::before,
