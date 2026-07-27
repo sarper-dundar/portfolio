@@ -4,9 +4,7 @@ description: 'Not diluted vampires — mortals forcibly awakened to a power they
 date: '2026-07-16'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - races
 categories:
   - 'Peoples & Races'

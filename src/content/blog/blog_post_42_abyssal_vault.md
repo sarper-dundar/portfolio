@@ -4,9 +4,7 @@ description: 'A prison built out of a volunteer, where confining the inmate and 
 date: '2026-08-01'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - cosmology
 categories:
   - 'Gods & the Harvest'

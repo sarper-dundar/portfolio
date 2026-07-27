@@ -4,9 +4,7 @@ description: "Introducing the homebrew D&D world I've been building, and the pre
 date: '2026-06-15'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
 categories:
   - 'Setting Overview'
 series:

@@ -4,9 +4,7 @@ description: 'What a prestige class is for in a setting with no class gatekeepin
 date: '2026-07-25'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
 categories:
   - 'Rules & Classes'
 series:

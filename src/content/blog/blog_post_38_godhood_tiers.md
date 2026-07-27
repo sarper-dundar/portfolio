@@ -4,9 +4,7 @@ description: 'Five layers of divine being, only two of which mortals know exist,
 date: '2026-07-28'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - cosmology
 categories:
   - 'Gods & the Harvest'

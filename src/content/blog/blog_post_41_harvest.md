@@ -4,9 +4,7 @@ description: 'The economics underneath the premise: why the gods keep the world 
 date: '2026-07-31'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - cosmology
 categories:
   - 'Gods & the Harvest'

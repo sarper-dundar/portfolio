@@ -4,9 +4,7 @@ description: 'Where souls go to be emptied before rebirth, and what a mandatory 
 date: '2026-07-06'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - cosmology
 categories:
   - 'Planes & Cosmology'

@@ -4,9 +4,7 @@ description: 'Why I removed the standard D&D spell system from my homebrew campa
 date: '2026-06-22'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
 categories:
   - 'Magic Systems'
 series:

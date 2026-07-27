@@ -4,9 +4,7 @@ description: 'The magic system where you never own the power, the price is set b
 date: '2026-06-29'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - magic
   - cosmology
 categories:

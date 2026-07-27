@@ -4,9 +4,7 @@ description: 'Time, space and gravity treated as one domain rather than three, a
 date: '2026-07-04'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - cosmology
 categories:
   - 'Planes & Cosmology'

@@ -4,9 +4,7 @@ description: 'A civilization that worked out what the gods were doing and tried 
 date: '2026-07-14'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - races
 categories:
   - 'Peoples & Races'

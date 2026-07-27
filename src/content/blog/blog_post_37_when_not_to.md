@@ -4,9 +4,7 @@ description: 'Writing mechanics for a player specialization can take it away fro
 date: '2026-07-27'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
 categories:
   - 'Rules & Classes'
 series:

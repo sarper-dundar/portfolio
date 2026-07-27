@@ -4,9 +4,7 @@ description: 'A completed prestige class where most of the abilities are useless
 date: '2026-07-26'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
 categories:
   - 'Rules & Classes'
 series:

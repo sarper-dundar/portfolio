@@ -4,9 +4,7 @@ description: 'A secret organization the players built themselves, designed aroun
 date: '2026-07-22'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - factions
 categories:
   - 'Factions & Places'

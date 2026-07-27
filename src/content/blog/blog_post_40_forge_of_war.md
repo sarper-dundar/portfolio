@@ -4,9 +4,7 @@ description: 'Four war gods who disagree about what war is, and why a sub-panthe
 date: '2026-07-30'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - cosmology
 categories:
   - 'Gods & the Harvest'

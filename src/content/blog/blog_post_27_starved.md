@@ -4,9 +4,7 @@ description: 'What is left when the conduit closes but the hunger does not — a
 date: '2026-07-17'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - races
 categories:
   - 'Peoples & Races'

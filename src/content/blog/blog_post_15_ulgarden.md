@@ -4,9 +4,7 @@ description: 'An archive that records everything and judges nothing, and a curre
 date: '2026-07-05'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - cosmology
 categories:
   - 'Planes & Cosmology'

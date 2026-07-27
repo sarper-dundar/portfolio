@@ -4,9 +4,7 @@ description: 'The design brief for a capital that a very strong party cannot sim
 date: '2026-07-19'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - factions
 categories:
   - 'Factions & Places'

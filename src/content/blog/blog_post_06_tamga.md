@@ -4,9 +4,7 @@ description: 'Rune magic built as a spending problem rather than a spell list, a
 date: '2026-06-26'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - magic
 categories:
   - 'Magic Systems'

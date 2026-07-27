@@ -4,9 +4,7 @@ description: 'What happens when the resistance movement is a state fabrication, 
 date: '2026-07-23'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - factions
 categories:
   - 'Factions & Places'

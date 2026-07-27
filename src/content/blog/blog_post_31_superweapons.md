@@ -4,9 +4,7 @@ description: 'Two city-scale threats designed so the party can beat them by unde
 date: '2026-07-21'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - factions
 categories:
   - 'Factions & Places'

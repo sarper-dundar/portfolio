@@ -4,9 +4,7 @@ description: 'Devils who destroy on principle rather than for pleasure, and the 
 date: '2026-07-11'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - cosmology
 categories:
   - 'Planes & Cosmology'

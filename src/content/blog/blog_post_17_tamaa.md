@@ -4,9 +4,7 @@ description: 'A plane whose inhabitants want to unmake the substrate of reality 
 date: '2026-07-07'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - cosmology
 categories:
   - 'Planes & Cosmology'

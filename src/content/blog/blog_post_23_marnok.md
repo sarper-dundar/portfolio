@@ -4,9 +4,7 @@ description: 'A race of sentient spores who were built as equipment, and what it
 date: '2026-07-13'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - races
 categories:
   - 'Peoples & Races'

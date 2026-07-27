@@ -4,9 +4,7 @@ description: 'What happens when you take away every intermediary between a perso
 date: '2026-07-03'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - magic
   - cosmology
 categories:

@@ -4,9 +4,7 @@ description: 'Two small populations I keep coming back to — a nomadic deep-sea
 date: '2026-07-18'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - races
 categories:
   - 'Peoples & Races'

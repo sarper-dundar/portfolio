@@ -4,9 +4,7 @@ description: 'A race with three contradictory origin myths, none of which are tr
 date: '2026-07-15'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - races
 categories:
   - 'Peoples & Races'

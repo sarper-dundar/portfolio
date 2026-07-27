@@ -4,9 +4,7 @@ description: 'Storm-Callers, keystones, a harbour that stands up, and a bound pr
 date: '2026-07-20'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - factions
 categories:
   - 'Factions & Places'

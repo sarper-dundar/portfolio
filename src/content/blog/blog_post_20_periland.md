@@ -4,9 +4,7 @@ description: 'How Kazankor fairies differ from the D&D version, and four laws th
 date: '2026-07-10'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - cosmology
 categories:
   - 'Planes & Cosmology'

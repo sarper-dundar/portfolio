@@ -4,9 +4,7 @@ description: 'Bending built as negotiation with living spirits rather than chann
 date: '2026-07-01'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - magic
 categories:
   - 'Magic Systems'

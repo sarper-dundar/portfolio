@@ -4,9 +4,7 @@ description: 'A magic system where the resource is belief, the terrain argues ba
 date: '2026-06-28'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - magic
   - cosmology
 categories:

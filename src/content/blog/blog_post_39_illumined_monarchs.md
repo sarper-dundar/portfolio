@@ -4,9 +4,7 @@ description: 'Ascension takes level 30 and a god seed. It does not take a class 
 date: '2026-07-29'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - cosmology
 categories:
   - 'Gods & the Harvest'

@@ -4,9 +4,7 @@ description: 'The setting keeps its central secret in its geology. Anyone willin
 date: '2026-08-03'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - cosmology
 categories:
   - 'Gods & the Harvest'

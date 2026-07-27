@@ -4,9 +4,7 @@ description: 'Four power systems, four different shapes of cost, and the shared 
 date: '2026-06-24'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - magic
 categories:
   - 'Rules & Classes'

@@ -4,9 +4,7 @@ description: 'The only class in Kazankor that touches True Source directly — 5
 date: '2026-06-25'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - alchemy
   - magic
 categories:

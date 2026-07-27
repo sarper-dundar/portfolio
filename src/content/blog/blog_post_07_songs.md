@@ -4,9 +4,7 @@ description: 'A magic system built as an escalating decision rather than a spell
 date: '2026-06-27'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - magic
 categories:
   - 'Magic Systems'

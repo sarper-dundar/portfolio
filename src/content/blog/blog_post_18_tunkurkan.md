@@ -4,9 +4,7 @@ description: 'Why free will needed its own plane, and a mechanic that slowly tur
 date: '2026-07-08'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - cosmology
 categories:
   - 'Planes & Cosmology'

@@ -4,9 +4,7 @@ description: 'The plane of lawful creation, staffed by beings who are unquestion
 date: '2026-07-09'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - cosmology
 categories:
   - 'Planes & Cosmology'

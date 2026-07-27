@@ -4,9 +4,7 @@ description: 'A power system that produces no detectable magic at all, advances 
 date: '2026-07-02'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
 categories:
   - 'Magic Systems'
 series:

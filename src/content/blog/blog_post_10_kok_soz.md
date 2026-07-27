@@ -4,9 +4,7 @@ description: 'The language reality was named into being with — a system nobody
 date: '2026-06-30'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - magic
   - cosmology
 categories:

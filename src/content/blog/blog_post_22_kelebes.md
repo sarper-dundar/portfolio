@@ -4,9 +4,7 @@ description: 'The plane nobody visits, staffed by beings with no will, holding a
 date: '2026-07-12'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - cosmology
 categories:
   - 'Planes & Cosmology'

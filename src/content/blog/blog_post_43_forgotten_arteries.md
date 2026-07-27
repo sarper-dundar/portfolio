@@ -4,9 +4,7 @@ description: 'Five floors of dead civilizations stacked on each other, each with
 date: '2026-08-02'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
 categories:
   - 'Factions & Places'
 series:

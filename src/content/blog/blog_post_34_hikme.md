@@ -4,9 +4,7 @@ description: 'A refuge state built on public magic, run by elected arcanists, wh
 date: '2026-07-24'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - factions
 categories:
   - 'Factions & Places'

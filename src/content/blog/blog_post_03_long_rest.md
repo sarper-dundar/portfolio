@@ -4,9 +4,7 @@ description: "Why I broke D&D's daily rest cadence, and how a week-long long res
 date: '2026-06-23'
 draft: false
 tags:
-  - dnd
   - worldbuilding
-  - design
   - rules
 categories:
   - 'Rules & Classes'
