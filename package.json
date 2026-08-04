@@ -19,32 +19,32 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.6",
-    "@astrojs/rss": "^4.0.18",
-    "@astrojs/sitemap": "^3.7.2",
-    "@expressive-code/plugin-collapsible-sections": "^0.42.0",
-    "@expressive-code/plugin-line-numbers": "^0.42.0",
-    "@fontsource/maple-mono": "^5.2.6",
-    "@tailwindcss/vite": "^4.3.0",
-    "astro": "^6.3.5",
-    "astro-expressive-code": "^0.42.0",
+    "@astrojs/mdx": "^7.0.5",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.3",
+    "@expressive-code/plugin-collapsible-sections": "^0.44.1",
+    "@expressive-code/plugin-line-numbers": "^0.44.1",
+    "@fontsource/maple-mono": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.1.6",
+    "astro-expressive-code": "^0.44.1",
     "lucide-astro": "^0.556.0",
-    "sharp": "^0.34.5",
-    "smol-toml": "^1.6.1",
-    "tailwindcss": "^4.3.0",
-    "three": "^0.184.0",
-    "three-mesh-bvh": "^0.9.10"
+    "sharp": "^0.35.3",
+    "smol-toml": "^1.7.1",
+    "tailwindcss": "^4.3.3",
+    "three": "^0.185.1",
+    "three-mesh-bvh": "^0.9.14"
   },
   "devDependencies": {
-    "@types/three": "^0.184.1",
-    "@typescript-eslint/parser": "^8.60.0",
+    "@types/three": "^0.185.3",
+    "@typescript-eslint/parser": "^8.65.0",
     "eslint-plugin-deprecation": "^3.0.0",
     "husky": "^9.1.7",
-    "lint-staged": "^17.0.5",
+    "lint-staged": "^17.3.0",
     "pagefind": "^1.5.2",
-    "prettier": "^3.8.3",
+    "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "lint-staged": {
     "*": "bun run format:check"
